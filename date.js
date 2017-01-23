@@ -32,3 +32,40 @@ function timeformat (timeStamp, output) {
 	return year + '-' + month + '-' + day + ' ' + hour + ':' + min + ':' + second + ' ' + '周' + weekArr[week-1];
 
 }
+
+;(function (win){
+	let __ = function () {
+		function __instance () {
+			this.nowtime = Date.now();
+			this.weekArr = ['一','二','三', '四', '五', '六', '日'];
+		}
+		__instance.prototype = {
+			now: function () { 
+				return this.nowtime 
+			},
+			date: function (timestamp) { 
+				return ( new Date(timestamp) )
+			},
+			disTime: function (target) { 
+				return this.nowtime + 3600 * 24 * 1000 * target 
+			},
+			yesterday: function () {
+			 return this.disTime(-1) 
+			},
+			tomorrow: function () {
+			 return this.disTime(1) 
+			},
+			month: function () {
+			 return this.disTime(-30) 
+			},
+			year: function () {
+			 return this.disTime(-365)
+			},
+			largerTen: function (value) {
+				return value > 10 ? value : '0' + value;
+			}
+		}
+		return new __instance() 
+	}();
+	win.__ = __;
+})(window);
